@@ -1,20 +1,16 @@
 from flask import Flask, request, jsonify
 import openai
 import os
-from flask import Flask
 
+# Initialize the Flask application
 app = Flask(__name__)
+
+# Set your OpenAI API key here (ensure the key is set as an environment variable)
+openai.api_key = os.getenv('OPENAI_API_KEY')  # Ensure this is properly set in Render's environment variables
 
 @app.route('/')
 def home():
     return "Welcome to the Legal Chatbot!"
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))# Initialize the Flask application
-app = Flask(__name__)
-
-# Set your OpenAI API key here
-openai.api_key = os.getenv('OPENAI_API_KEY')  # Ensure the key is set as an environment variable
 
 @app.route('/chat', methods=['POST'])
 def chat():
@@ -44,7 +40,6 @@ def chat():
         # If there's an error, return the error message
         return jsonify({"error": str(e)}), 500
 
-
 if __name__ == '__main__':
     # Run the app with the Flask development server (only for local testing)
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
