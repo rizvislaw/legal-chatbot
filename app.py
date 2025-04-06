@@ -1,8 +1,16 @@
 from flask import Flask, request, jsonify
 import openai
 import os
+from flask import Flask
 
-# Initialize the Flask application
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Welcome to the Legal Chatbot!"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))# Initialize the Flask application
 app = Flask(__name__)
 
 # Set your OpenAI API key here
